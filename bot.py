@@ -25,13 +25,11 @@ async def current(ctx, arg1=DEFAULT_ARG): #TODO: add error handling.
         url = 'https://finnhub.io/api/v1/quote?symbol={}&token={}'.format(arg1, API)
         request = requests.get(url)
         response = request.text
-        print(response)
         decoded_response = json.loads(response)
         try:
             current_price = (decoded_response['c'])
-            print(current_price)
         except KeyError:
-            print("potato")
+            await ctx.send('"{}" Is not a valid stock ticker! Please use a valid ticker.'.format(arg1))
         await ctx.send('The current price of {} is: {}'.format(arg1, current_price))
     else:
         await ctx.send('You need to include at least one ticker to your command.')
