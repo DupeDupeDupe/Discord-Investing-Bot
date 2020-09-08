@@ -19,7 +19,7 @@ brief="This returns the current quote for the requested stock."
 async def current(ctx, arg1): #TODO: add error handling
 
     url = 'https://finnhub.io/api/v1/quote?symbol={}&token={}'.format(arg1, API)
-    request = requests.get(url, stream=True)
+    request = requests.get(url)
     response = request.text
     decoded_response = json.loads(response)
     current_price = (decoded_response['c'])
