@@ -1,11 +1,10 @@
 # bot.py
 import os
-import random
 import requests
 import discord
+import json
 from dotenv import load_dotenv
 from discord.ext import commands
-import json
 load_dotenv()
 
 TOKEN = os.getenv('DISCORD_TOKEN')
