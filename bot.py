@@ -26,5 +26,3 @@ async def current(ctx, arg1): #TODO: add error handling
     await ctx.send('The current price of {} is: {}'.format(arg1, current_price))
 
 bot.run(TOKEN)
-
-#hot desk swap wright pat
