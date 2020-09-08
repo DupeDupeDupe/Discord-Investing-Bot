@@ -11,20 +11,27 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 API = os.getenv('API_TOKEN')
 
 bot = commands.Bot(command_prefix='$')
+BASIC_ARG = "empty"
+DEFAULT_ARG = BASIC_ARG.format("str", "string")
 
 #current price
 @bot.command(
 help="This returns the current quote for the requested stock. To use this command type '$current <Stock Ticker>'",
 brief="This returns the current quote for the requested stock."
 )
-async def current(ctx, arg1): #TODO: add error handling.
 
-    url = 'https://finnhub.io/api/v1/quote?symbol={}&token={}'.format(arg1, API)
-    request = requests.get(url)
-    response = request.text
-    decoded_response = json.loads(response)
-    current_price = (decoded_response['c'])
-    await ctx.send('The current price of {} is: {}'.format(arg1, current_price))
+async def current(ctx, arg1=DEFAULT_ARG): #TODO: add error handling.
+
+    if arg1 != 'empty':
+        url = 'https://finnhub.io/api/v1/quote?symbol={}&token={}'.format(API)
+        request = requests.get(url)
+        response = request.text
+        decoded_response = json.loads(response)
+        current_price = (decoded_response['c'])
+        print(current_price)
+        await ctx.send('The current price of {} is: {}'.format(arg1, current_price))
+    else:
+        await ctx.send('You need to include at least one ticker to your command.')
 
 #daily low
 @bot.command(
